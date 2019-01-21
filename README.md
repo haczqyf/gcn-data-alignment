@@ -1,6 +1,6 @@
 # gcn-data-alignment
 
-Implementation of data alignment for Graph Convolutional Networks.
+Implementation of data alignment on Graph Convolutional Networks.
 
 Installation
 ------------
