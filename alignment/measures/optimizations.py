@@ -10,6 +10,17 @@ from alignment.measures.subspaces import *
 
 def optimize_dim_subspaces(dataset, num_rdm, num_k):
     """
+    Find dimensions for features and graph by optimization.
+    
+    Parameters:
+        dataset(string): dataset name
+        num_rdm(int): number of instances for randomization
+        num_k(int): number of dimensions evenly split
+
+    Returns:
+        Correspoding optimized dimensions for features, graph and ground truth
+    Return type:
+        Dictionary
     """
 
     node_l, G, X, A, Y = load_data(dataset=dataset)
@@ -23,7 +34,7 @@ def optimize_dim_subspaces(dataset, num_rdm, num_k):
     i = 0
     for k_X in k_X_l:
         for k_A in k_A_l:
-            # print("k_X = {}, k_A = {}".format(k_X,k_A))
+            print("k_X = {}, k_A = {}".format(k_X,k_A))
             d_zero_rdm = distance(
                             X=igds.get_X_gcn(p=0), 
                             A=igds.get_A_gcn(p=0), 
@@ -32,11 +43,11 @@ def optimize_dim_subspaces(dataset, num_rdm, num_k):
                             k_A=k_A, 
                             k_Y=k_Y
                             )
-            # print("d_zero_rdm = {}".format(d_zero_rdm))
+            print("d_zero_rdm = {}".format(d_zero_rdm))
 
             d_full_rdm = 0
             for j in range(num_rdm):
-                # print("id = {}".format(j))
+                print("id = {}".format(j))
                 d_full_rdm_temp = distance(
                                     X=igds.get_X_gcn(p=100), 
                                     A=igds.get_A_gcn(p=100), 
@@ -45,33 +56,39 @@ def optimize_dim_subspaces(dataset, num_rdm, num_k):
                                     k_A=k_A, 
                                     k_Y=k_Y
                                     )
-                # print("d_full_rdm_temp = {}".format(d_full_rdm_temp))
+                print("d_full_rdm_temp = {}".format(d_full_rdm_temp))
                 d_full_rdm = d_full_rdm + d_full_rdm_temp
             
             d_full_rdm = d_full_rdm / num_rdm
             df.loc[i] = [k_X,k_A,k_Y,d_zero_rdm,d_full_rdm,d_full_rdm-d_zero_rdm]
             i = i + 1
 
-    df.k_X = df.k_X.astype(int)
-    df.k_A = df.k_A.astype(int)
-    df.k_Y = df.k_Y.astype(int)
+    # df.k_X = df.k_X.astype(int)
+    # df.k_A = df.k_A.astype(int)
+    # df.k_Y = df.k_Y.astype(int)
 
-    piv = pd.pivot_table(df, values="d_diff_zero_full_rdm",index=["k_A"], columns=["k_X"], fill_value=0)
+    # piv = pd.pivot_table(df, values="d_diff_zero_full_rdm",index=["k_A"], columns=["k_X"], fill_value=0)
 
-    fig, ax = plt.subplots()
-    im = ax.imshow(piv, cmap="Greens")
-    fig.colorbar(im, ax=ax)
+    # fig, ax = plt.subplots()
+    # im = ax.imshow(piv, cmap="Greens")
+    # fig.colorbar(im, ax=ax)
 
-    ax.set_xticks(range(len(piv.columns)))
-    ax.set_yticks(range(len(piv.index)))
-    ax.set_xticklabels(piv.columns, rotation=90)
-    ax.set_yticklabels(piv.index)
-    ax.set_xlabel(r"$k_{X}$",fontsize=16)
-    ax.set_ylabel(r"$k_{A}$",fontsize=16)
+    # ax.set_xticks(range(len(piv.columns)))
+    # ax.set_yticks(range(len(piv.index)))
+    # ax.set_xticklabels(piv.columns, rotation=90)
+    # ax.set_yticklabels(piv.index)
+    # ax.set_xlabel(r"$k_{X}$",fontsize=16)
+    # ax.set_ylabel(r"$k_{A}$",fontsize=16)
 
-    plt.tight_layout()
-    plt.show()
+    # plt.tight_layout()
+    # plt.show()
 
     return dict(df.iloc[df['d_diff_zero_full_rdm'].idxmax()].astype(int)[["k_X","k_A","k_Y"]])
 
+if __name__ == "__main__":
+    print(optimize_dim_subspaces(
+        dataset="constructive_example",
+        num_rdm=1,
+        num_k=5,
+        ))
     

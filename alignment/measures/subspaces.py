@@ -7,6 +7,7 @@ from sklearn.decomposition import PCA
 from alignment.utils import find_repeat
 
 def distance(X, A, Y, k_X, k_A, k_Y):
+    """Compute distance among spaces of features, graph and ground truth"""
 
     subspace_X = subspace_pca(X, k_X)
     subspace_A = subspace_eigendecomposition(A, k_A)
@@ -26,16 +27,22 @@ def distance(X, A, Y, k_X, k_A, k_Y):
 
 
 def chordal(angles):
+    """Chordal distance"""
+
     return np.linalg.norm(np.sin(angles))
     
-# subspace of a matrix by PCA where k is the dimension of subspace
+
 def subspace_pca(X, k):
+    """Subspace of a matrix by PCA where k is the dimension of subspace"""
+    
     pca = PCA(n_components=k)
     pca.fit(X)
     return pca.transform(X)
 
-# subspace of graph
+
 def subspace_eigendecomposition(A, k):
+    """Subspace of graph with dimension k"""
+
     vals, vecs = scipy.linalg.eigh(A, eigvals=(A.shape[0]-k, A.shape[0]-1))
     vals_unique_sorted = sorted(list(set(vals)), reverse=True)
 
@@ -48,8 +55,10 @@ def subspace_eigendecomposition(A, k):
 
     return np.array(vecs_ordered).transpose().reshape(A.shape[0], k)
 
-# principal angles
+
 def prinAngles(A, B):
+    """Principal angles between two subspaces A and B"""
+
     Q_A, R_A = scipy.linalg.qr(A, mode='economic')
     Q_B, R_B = scipy.linalg.qr(B, mode='economic')
 

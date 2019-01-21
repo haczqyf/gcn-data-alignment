@@ -9,6 +9,6 @@ setup(name='alignment',
       url='https://haczqyf.github.io/',
       download_url='...',
       license='MIT',
-      install_requires=['networkx'],
+      install_requires=['networkx','pandas','scipy','sklearn'],
       package_data={'alignment': ['README.md']},
       packages=find_packages())

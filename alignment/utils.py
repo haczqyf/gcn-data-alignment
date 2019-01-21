@@ -1,10 +1,11 @@
 import scipy.sparse as sp
 import numpy as np
+
 from sklearn import preprocessing
+import networkx as nx
 
 def load_data(dataset="cora"):
-    """Load citation network dataset"""
-    import networkx as nx
+    """Load citation network dataset."""
     print('Loading {} dataset...'.format(dataset))
 
     idx_feature_labels = np.genfromtxt("data/{}/{}.content".format(dataset, dataset), dtype=np.dtype(str))
@@ -30,14 +31,13 @@ def load_data(dataset="cora"):
     return idx, G, feature.toarray(), adj.toarray(), labels
 
 def encode_onehot(labels):
-    # classes = set(labels)
     classes = sorted(list(set(labels)))
     classes_dict = {c: np.identity(len(classes))[i, :] for i, c in enumerate(classes)}
     labels_onehot = np.array(list(map(classes_dict.get, labels)), dtype=np.int32)
     return labels_onehot
 
 def preprocess_feature(feature):
-    """Row-normalize feature matrix"""
+    """Row-normalize feature matrix and convert to tuple representation."""
     feature = preprocessing.normalize(feature, norm='l1', axis=1)
     return feature
 
@@ -55,8 +55,9 @@ def preprocess_adj(adj):
     adj_normalized = normalize_adj(adj + sp.eye(adj.shape[0]))
     return adj_normalized.toarray()
 
-# helper function
-def find_repeat(source, elmt): # The source may be a list or string.
+
+def find_repeat(source, elmt): 
+    """Helper function, find index of repreat elements in source."""
     elmt_index = []
     s_index = 0;e_index = len(source)
     while(s_index < e_index):
