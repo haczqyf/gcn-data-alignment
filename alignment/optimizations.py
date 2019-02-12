@@ -8,7 +8,7 @@ from alignment.utils import *
 from alignment.measures.randomizations import *
 from alignment.measures.subspaces import *
 
-def optimize_dim_subspaces(dataset, num_rdm, num_k, log=True, heatmap=False):
+def optimize_dim_subspaces(dataset, num_rdm, num_k, norm_type="Frobenius-Norm", log=True, heatmap=False):
     """
     Find dimensions for features and graph by optimization.
     
@@ -43,7 +43,8 @@ def optimize_dim_subspaces(dataset, num_rdm, num_k, log=True, heatmap=False):
                             Y=igds.get_Y_gcn(), 
                             k_X=k_X, 
                             k_A=k_A, 
-                            k_Y=k_Y
+                            k_Y=k_Y,
+                            norm_type=norm_type
                             )
             # print("d_zero_rdm = {}".format(d_zero_rdm))
 
@@ -56,7 +57,8 @@ def optimize_dim_subspaces(dataset, num_rdm, num_k, log=True, heatmap=False):
                                     Y=igds.get_Y_gcn(), 
                                     k_X=k_X, 
                                     k_A=k_A, 
-                                    k_Y=k_Y
+                                    k_Y=k_Y,
+                                    norm_type=norm_type
                                     )
                 if log == True:
                     print("k_X={},k_A={},d_zero_rdm={},random_id={},d_full_rdm_temp={}".format(
@@ -79,7 +81,7 @@ def optimize_dim_subspaces(dataset, num_rdm, num_k, log=True, heatmap=False):
 
         piv = pd.pivot_table(df, values="d_diff_zero_full_rdm",index=["k_A"], columns=["k_X"], fill_value=0)
 
-        fig, ax = plt.subplots()
+        fig, ax = plt.subplots(figsize=(8,6))
         im = ax.imshow(piv, cmap="Greens")
         fig.colorbar(im, ax=ax)
 
@@ -89,9 +91,11 @@ def optimize_dim_subspaces(dataset, num_rdm, num_k, log=True, heatmap=False):
         ax.set_yticklabels(piv.index)
         ax.set_xlabel(r"$k_{X}$",fontsize=16)
         ax.set_ylabel(r"$k_{A}$",fontsize=16)
+        plt.savefig('{}.eps'.format(dataset))
 
         plt.tight_layout()
         plt.show()
+
 
     return dict(df.iloc[df['d_diff_zero_full_rdm'].idxmax()].astype(int)[["k_X","k_A","k_Y"]])
 
@@ -99,6 +103,9 @@ if __name__ == "__main__":
     print(optimize_dim_subspaces(
         dataset="constructive_example",
         num_rdm=1,
-        num_k=3,
+        num_k=5,
+        norm_type="Frobenius-Norm",
+        log=True,
+        heatmap=False
         ))
     

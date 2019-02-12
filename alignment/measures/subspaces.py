@@ -5,8 +5,9 @@ import numpy as np
 from sklearn.decomposition import PCA
 
 from alignment.utils import find_repeat
+from alignment.exceptions import NormTypeNotPossible
 
-def distance(X, A, Y, k_X, k_A, k_Y):
+def distance(X, A, Y, k_X, k_A, k_Y, norm_type):
     """Compute distance among spaces of features, graph and ground truth"""
 
     subspace_X = subspace_pca(X, k_X)
@@ -21,7 +22,18 @@ def distance(X, A, Y, k_X, k_A, k_Y):
     d_X_Y = chordal(angles_X_Y)
     d_A_Y = chordal(angles_A_Y)
 
-    d_X_A_Y = np.sqrt(2 * (np.power(d_X_A,2) + np.power(d_X_Y,2) + np.power(d_A_Y,2)))
+    # distance_matrix = np.array([[0, d_X_A, d_X_Y],
+    #                             [d_X_A, 0, d_A_Y],
+    #                             [d_X_Y, d_A_Y, 0]])
+
+    if norm_type == "Frobenius-Norm":
+        d_X_A_Y = np.sqrt(2 * (np.power(d_X_A,2) + np.power(d_X_Y,2) + np.power(d_A_Y,2)))
+    elif norm_type == "L1-Norm":
+        d_X_A_Y = 2 * (d_X_A + d_X_Y + d_A_Y)
+    else:
+        raise NormTypeNotPossible(
+            "There is no such a norm {} as choice".format(norm_type)
+        )
 
     return d_X_A_Y
 
