@@ -7,7 +7,10 @@ Installation
 
 ```python setup.py install```
 
-Usage
+Run the demo
 ------------
 
-```python optimizations.py```
+```
+cd alignment
+python optimizations.py
+```
