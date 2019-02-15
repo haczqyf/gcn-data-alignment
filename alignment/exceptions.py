@@ -11,3 +11,8 @@ class NormTypeNotPossible(IngredientsException):
     """Exception raised if no norm ty is possible"""
 
     pass
+
+class ScanningCountNotPossible(IngredientsException):
+    """Exception raised if number of scanning is larger than 2"""
+
+    pass
