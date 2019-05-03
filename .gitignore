@@ -5,6 +5,8 @@
 tmp/
 *.txt
 *.csv
+*.eps
+local_test/
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
@@ -96,4 +98,3 @@ ENV/
 .ropeproject
 
 *.pickle
-*.ipynb
