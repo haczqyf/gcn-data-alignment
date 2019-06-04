@@ -1,6 +1,9 @@
 # gcn-data-alignment
 
-Implementation of data alignment on Graph Convolutional Networks.
+This is a Python implementation of subspace alignment measure (SAM) for quantitying the alignment of graph and features in deep learning, as described in our paper:
+ 
+Qian, Yifan, Paul Expert, Tom Rieu, Pietro Panzarasa, and Mauricio Barahona, [Quantifying the alignment of graph and features in deep learning](https://arxiv.org/abs/1905.12921).
+
 
 Installation
 ------------
