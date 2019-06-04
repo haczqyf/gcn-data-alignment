@@ -29,3 +29,15 @@ optimize_dim_subspaces(
     heatmap=True
 )
 ```
+
+Cite
+------------
+Please cite our paper if you use this code in your own work:
+```
+@article{qian2019quantifying,
+  title={Quantifying the alignment of graph and features in deep learning},
+  author={Qian, Yifan and Expert, Paul and Rieu, Tom and Panzarasa, Pietro and Barahona, Mauricio},
+  journal={arXiv preprint arXiv:1905.12921},
+  year={2019}
+}
+```
