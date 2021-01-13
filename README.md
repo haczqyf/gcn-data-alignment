@@ -37,10 +37,11 @@ Cite
 ------------
 Please cite our paper if you use this code in your own work:
 ```
-@article{qian2019quantifying,
+@article{qian2021quantifying,
   title={Quantifying the alignment of graph and features in deep learning},
   author={Qian, Yifan and Expert, Paul and Rieu, Tom and Panzarasa, Pietro and Barahona, Mauricio},
-  journal={arXiv preprint arXiv:1905.12921},
-  year={2019}
+  journal={IEEE Transactions on Neural Networks and Learning Systems},
+  doi={10.1109/TNNLS.2020.3043196},
+  year={2021}
 }
 ```
