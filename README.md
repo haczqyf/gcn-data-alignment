@@ -2,7 +2,7 @@
 
 This is a Python implementation of subspace alignment measure (SAM) for quantitying the alignment of graph and features in deep learning, as described in our paper:
  
-Yifan Qian, Paul Expert, Tom Rieu, Pietro Panzarasa, and Mauricio Barahona (forthcoming), [Quantifying the alignment of graph and features in deep learning](https://arxiv.org/abs/1905.12921), *IEEE Transactions on Neural Networks and Learning Systems*.
+Yifan Qian, Paul Expert, Tom Rieu, Pietro Panzarasa, and Mauricio Barahona (2021), [Quantifying the alignment of graph and features in deep learning](https://arxiv.org/abs/1905.12921), *IEEE Transactions on Neural Networks and Learning Systems*.
 
 
 Installation
