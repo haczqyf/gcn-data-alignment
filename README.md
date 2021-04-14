@@ -41,7 +41,8 @@ Please cite our paper if you use this code in your own work:
   title={Quantifying the alignment of graph and features in deep learning},
   author={Qian, Yifan and Expert, Paul and Rieu, Tom and Panzarasa, Pietro and Barahona, Mauricio},
   journal={IEEE Transactions on Neural Networks and Learning Systems},
+  year={2021},
   doi={10.1109/TNNLS.2020.3043196},
-  year={2021}
+  publisher={IEEE}
 }
 ```
